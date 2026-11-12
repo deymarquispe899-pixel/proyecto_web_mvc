@@ -1,0 +1,60 @@
+@model LeccionesAdminViewModel
+@{
+    ViewData["Title"] = "Lecciones";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="AdminCursos" asp-action="Index">Cursos</a></li>
+        <li class="breadcrumb-item active">@Model.Curso.Titulo</li>
+    </ol>
+</nav>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Lecciones de «@Model.Curso.Titulo»</h1>
+    <a class="btn btn-primary" asp-action="Crear" asp-route-cursoId="@Model.Curso.Id">+ Nueva lección</a>
+</div>
+
+@if (!Model.Lecciones.Any())
+{
+    <div class="alert alert-info">Este curso aún no tiene lecciones.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th style="width: 70px">Orden</th>
+                    <th>Título</th>
+                    <th class="text-end">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var l in Model.Lecciones)
+                {
+                    <tr>
+                        <td>@l.Orden</td>
+                        <td>@l.Titulo</td>
+                        <td class="text-end text-nowrap">
+                            <form asp-action="Mover" asp-route-id="@l.Id" method="post" class="d-inline">
+                                <input type="hidden" name="direccion" value="subir" />
+                                <button type="submit" class="btn btn-sm btn-outline-secondary" title="Subir" disabled="@(l == Model.Lecciones.First())">▲</button>
+                            </form>
+                            <form asp-action="Mover" asp-route-id="@l.Id" method="post" class="d-inline">
+                                <input type="hidden" name="direccion" value="bajar" />
+                                <button type="submit" class="btn btn-sm btn-outline-secondary" title="Bajar" disabled="@(l == Model.Lecciones.Last())">▼</button>
+                            </form>
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="Lecciones" asp-action="Ver" asp-route-id="@l.Id">Ver</a>
+                            <a class="btn btn-sm btn-outline-secondary" asp-action="Editar" asp-route-id="@l.Id">Editar</a>
+                            <form asp-action="Eliminar" asp-route-id="@l.Id" method="post" class="d-inline"
+                                  onsubmit="return confirm('¿Eliminar esta lección?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

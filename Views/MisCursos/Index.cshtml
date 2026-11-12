@@ -1,0 +1,39 @@
+@model List<MiCursoViewModel>
+@{
+    ViewData["Title"] = "Mis cursos";
+}
+
+<h1 class="h3 mb-3">Mis cursos</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Aún no te has inscrito en ningún curso. <a asp-controller="Cursos" asp-action="Index">Explora el catálogo</a>.
+    </div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        @foreach (var c in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@c.Titulo</h5>
+                        <p class="mb-2">
+                            <span class="badge bg-info text-dark">@c.Nivel.Nombre()</span>
+                            <span class="badge bg-secondary">@c.DuracionHoras h</span>
+                        </p>
+                        <div class="progress mb-1" role="progressbar" aria-valuenow="@c.Porcentaje" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar" style="width: @(c.Porcentaje)%">@c.Porcentaje%</div>
+                        </div>
+                        <small class="text-muted">@c.Completadas de @c.TotalLecciones lecciones completadas</small>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3">
+                        <a class="btn btn-primary btn-sm" asp-action="Detalle" asp-route-id="@c.CursoId">Continuar</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

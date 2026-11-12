@@ -1,0 +1,46 @@
+@model MiCursoDetalleViewModel
+@{
+    ViewData["Title"] = Model.Curso.Titulo;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Mis cursos</a></li>
+        <li class="breadcrumb-item active">@Model.Curso.Titulo</li>
+    </ol>
+</nav>
+
+<h1 class="h2">@Model.Curso.Titulo</h1>
+<p class="text-muted" style="white-space: pre-line">@Model.Curso.Descripcion</p>
+
+<h2 class="h5 mt-4">Tu progreso</h2>
+<div class="progress mb-1" role="progressbar" aria-valuenow="@Model.Porcentaje" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar" style="width: @(Model.Porcentaje)%">@Model.Porcentaje%</div>
+</div>
+<small class="text-muted">@Model.CompletadasIds.Count de @Model.Lecciones.Count lecciones completadas</small>
+
+<h2 class="h5 mt-4">Lecciones</h2>
+@if (!Model.Lecciones.Any())
+{
+    <p class="text-muted">Este curso aún no tiene lecciones.</p>
+}
+else
+{
+    <div class="list-group">
+        @foreach (var l in Model.Lecciones)
+        {
+            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+               asp-controller="Lecciones" asp-action="Ver" asp-route-id="@l.Id">
+                <span>@l.Orden. @l.Titulo</span>
+                @if (Model.CompletadasIds.Contains(l.Id))
+                {
+                    <span class="badge bg-success">Completada ✔</span>
+                }
+                else
+                {
+                    <span class="badge bg-light text-dark border">Pendiente</span>
+                }
+            </a>
+        }
+    </div>
+}

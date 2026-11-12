@@ -1,0 +1,17 @@
+@model Leccion
+@{
+    ViewData["Title"] = "Editar lección";
+}
+
+<h1 class="h3 mb-1">Editar lección</h1>
+<p class="text-muted">Curso: @ViewBag.CursoTitulo</p>
+
+<div class="row">
+    <div class="col-lg-9">
+        <form asp-action="Editar" asp-route-id="@Model.Id" method="post">
+            <partial name="_Campos" />
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            <a class="btn btn-outline-secondary" asp-action="Index" asp-route-cursoId="@Model.CursoId">Cancelar</a>
+        </form>
+    </div>
+</div>

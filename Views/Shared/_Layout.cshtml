@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Portal de Microcursos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">📚 Portal de Microcursos</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" asp-controller="Cursos" asp-action="Index">Catálogo</a></li>
+                    @if (User.IsInRole(RolesApp.Suscriptor))
+                    {
+                        <li class="nav-item"><a class="nav-link" asp-controller="MisCursos" asp-action="Index">Mis cursos</a></li>
+                    }
+                    @if (User.IsInRole(RolesApp.Admin))
+                    {
+                        <li class="nav-item"><a class="nav-link" asp-controller="AdminCursos" asp-action="Index">Administrar cursos</a></li>
+                    }
+                </ul>
+                <ul class="navbar-nav align-items-lg-center">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <li class="nav-item"><span class="navbar-text me-3">@User.Identity.Name</span></li>
+                        <li class="nav-item">
+                            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-outline-light btn-sm">Salir</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Login">Ingresar</a></li>
+                        <li class="nav-item"><a class="btn btn-light btn-sm ms-lg-2" asp-controller="Account" asp-action="Register">Registrarse</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4 flex-grow-1">
+        @if (TempData["Ok"] is string ok)
+        {
+            <div class="alert alert-success alert-dismissible fade show">@ok<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+        }
+        @if (TempData["Error"] is string error)
+        {
+            <div class="alert alert-danger alert-dismissible fade show">@error<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+        }
+        @RenderBody()
+    </main>
+
+    <footer class="border-top py-3 text-center text-muted small">
+        &copy; @DateTime.Now.Year Portal de Microcursos y Tutoriales &middot; Univalle
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

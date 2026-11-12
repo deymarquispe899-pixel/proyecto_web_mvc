@@ -1,0 +1,60 @@
+@model LeccionVerViewModel
+@{
+    ViewData["Title"] = Model.Leccion.Titulo;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        @if (Model.PuedeCompletar)
+        {
+            <li class="breadcrumb-item"><a asp-controller="MisCursos" asp-action="Index">Mis cursos</a></li>
+            <li class="breadcrumb-item"><a asp-controller="MisCursos" asp-action="Detalle" asp-route-id="@Model.Leccion.CursoId">@Model.Leccion.Curso!.Titulo</a></li>
+        }
+        else
+        {
+            <li class="breadcrumb-item"><a asp-controller="AdminLecciones" asp-action="Index" asp-route-cursoId="@Model.Leccion.CursoId">@Model.Leccion.Curso!.Titulo</a></li>
+        }
+        <li class="breadcrumb-item active">Lección @Model.Posicion de @Model.Total</li>
+    </ol>
+</nav>
+
+<h1 class="h3 mb-3">@Model.Leccion.Titulo</h1>
+
+<article class="leccion-contenido mb-4">
+    @* El contenido solo lo crea el administrador (texto o HTML sencillo). *@
+    @Html.Raw(Model.Leccion.Contenido)
+</article>
+
+<hr />
+
+<div class="d-flex flex-wrap gap-2 justify-content-between align-items-center">
+    <div>
+        @if (Model.AnteriorId != null)
+        {
+            <a class="btn btn-outline-secondary" asp-action="Ver" asp-route-id="@Model.AnteriorId">← Anterior</a>
+        }
+    </div>
+
+    <div>
+        @if (Model.PuedeCompletar)
+        {
+            if (Model.Completada)
+            {
+                <span class="badge bg-success fs-6">Lección completada ✔</span>
+            }
+            else
+            {
+                <form asp-action="Completar" asp-route-id="@Model.Leccion.Id" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-success">Marcar como completada</button>
+                </form>
+            }
+        }
+    </div>
+
+    <div>
+        @if (Model.SiguienteId != null)
+        {
+            <a class="btn btn-primary" asp-action="Ver" asp-route-id="@Model.SiguienteId">Siguiente →</a>
+        }
+    </div>
+</div>

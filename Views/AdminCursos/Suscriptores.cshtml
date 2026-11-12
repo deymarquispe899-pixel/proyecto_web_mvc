@@ -1,0 +1,42 @@
+@model SuscriptoresViewModel
+@{
+    ViewData["Title"] = "Suscriptores";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Cursos</a></li>
+        <li class="breadcrumb-item active">@Model.Curso.Titulo</li>
+    </ol>
+</nav>
+
+<h1 class="h3 mb-3">Suscriptores inscritos <span class="badge bg-secondary">@Model.Suscriptores.Count</span></h1>
+
+@if (!Model.Suscriptores.Any())
+{
+    <div class="alert alert-info">Aún no hay inscripciones en este curso.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Correo</th>
+                    <th>Fecha de inscripción</th>
+                    <th>Progreso</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in Model.Suscriptores)
+                {
+                    <tr>
+                        <td>@s.Email</td>
+                        <td>@s.FechaInscripcion.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@s.Completadas / @Model.TotalLecciones lecciones</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

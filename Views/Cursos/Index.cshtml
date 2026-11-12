@@ -1,0 +1,30 @@
+@model List<Curso>
+@{
+    ViewData["Title"] = "Catálogo de cursos";
+}
+
+<h1 class="h3 mb-3">Catálogo de cursos</h1>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-6">
+        <input name="q" value="@ViewBag.Q" class="form-control" placeholder="Buscar por título o descripción..." />
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary">Buscar</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Limpiar</a>
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No se encontraron cursos publicados.</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var curso in Model)
+        {
+            <div class="col"><partial name="_CursoCard" model="curso" /></div>
+        }
+    </div>
+}

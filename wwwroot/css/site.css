@@ -1,0 +1,5 @@
+.leccion-contenido { line-height: 1.7; font-size: 1.05rem; }
+.leccion-contenido pre { background: #f3f4f6; padding: 1rem; border-radius: .5rem; overflow-x: auto; }
+.leccion-contenido img { max-width: 100%; height: auto; }
+.card-curso { transition: transform .15s ease, box-shadow .15s ease; }
+.card-curso:hover { transform: translateY(-3px); box-shadow: 0 .5rem 1rem rgba(0,0,0,.12) !important; }

@@ -1,0 +1,15 @@
+@model Curso
+
+<div class="card card-curso h-100 shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Titulo</h5>
+        <p class="mb-2">
+            <span class="badge bg-info text-dark">@Model.Nivel.Nombre()</span>
+            <span class="badge bg-secondary">@Model.DuracionHoras h</span>
+        </p>
+        <p class="card-text text-muted">@(Model.Descripcion.Length > 120 ? Model.Descripcion[..120] + "…" : Model.Descripcion)</p>
+    </div>
+    <div class="card-footer bg-white border-0 pb-3">
+        <a asp-controller="Cursos" asp-action="Detalles" asp-route-id="@Model.Id" class="btn btn-outline-primary btn-sm">Ver curso</a>
+    </div>
+</div>

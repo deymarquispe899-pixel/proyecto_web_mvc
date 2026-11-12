@@ -1,0 +1,29 @@
+@model List<Curso>
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="p-5 mb-4 bg-light rounded-3">
+    <h1 class="display-5 fw-bold">Portal de Microcursos y Tutoriales</h1>
+    <p class="col-md-8 fs-5">Aprende a tu ritmo con microcursos técnicos gratuitos. Explora el catálogo, inscríbete y sigue tu progreso lección por lección.</p>
+    <a class="btn btn-primary btn-lg" asp-controller="Cursos" asp-action="Index">Ver catálogo</a>
+    @if (User.Identity?.IsAuthenticated != true)
+    {
+        <a class="btn btn-outline-primary btn-lg ms-2" asp-controller="Account" asp-action="Register">Crear cuenta</a>
+    }
+</div>
+
+<h2 class="h4 mb-3">Cursos recientes</h2>
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Aún no hay cursos publicados.</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var curso in Model)
+        {
+            <div class="col"><partial name="_CursoCard" model="curso" /></div>
+        }
+    </div>
+}
