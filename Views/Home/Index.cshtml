@@ -3,19 +3,30 @@
     ViewData["Title"] = "Inicio";
 }
 
-<div class="hero-inicio mb-5">
+<section class="hero-inicio mb-5" aria-labelledby="hero-titulo">
+    <div class="hero-particulas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="hero-contenido">
-        <span class="hero-etiqueta">APRENDE A TU RITMO</span>
-        <h1 class="display-4 fw-bold mt-3">Nuevas habilidades,<br />un curso a la vez.</h1>
-        <p class="fs-5 mt-3 mb-4">Explora microcursos técnicos, aprende con lecciones prácticas y sigue tu progreso paso a paso.</p>
-        <a class="btn btn-light btn-lg fw-semibold" asp-controller="Cursos" asp-action="Index">Explorar cursos <span aria-hidden="true">→</span></a>
+        <span class="hero-etiqueta"><span class="estado-punto"></span> APRENDE A TU RITMO</span>
+        <h1 id="hero-titulo" class="display-4 fw-bold mt-3">Nuevas habilidades,<br /><span>un curso a la vez</span></h1>
+        <p class="fs-5 mt-3 mb-4">Explora microcursos técnicos, aprende con lecciones prácticas y sigue tu progreso paso a paso</p>
+        <div class="hero-acciones">
+            <a class="btn btn-primary btn-lg hero-cta" asp-controller="Cursos" asp-action="Index">Explorar cursos <span aria-hidden="true">↗</span></a>
         @if (User.Identity?.IsAuthenticated != true)
         {
-            <a class="btn btn-outline-light btn-lg ms-sm-2 mt-2 mt-sm-0" asp-controller="Account" asp-action="Register">Crear cuenta</a>
+                <a class="btn btn-outline-light btn-lg hero-secundario" asp-controller="Account" asp-action="Register">Crear cuenta <span aria-hidden="true">→</span></a>
         }
+        </div>
+        <div class="hero-nota"><span class="hero-nota-linea"></span> Lecciones breves. Habilidades reales.</div>
     </div>
-    <div class="hero-decoracion" aria-hidden="true"><span>01</span><span>↗</span></div>
-</div>
+    <div class="hero-visual" aria-hidden="true">
+        <div class="hero-orbita orbita-uno"></div><div class="hero-orbita orbita-dos"></div>
+        <div class="hero-codigo"><div class="codigo-top"><span></span><span></span><span></span><b>learning.js</b></div><div class="codigo-lineas"><span>01</span><code><em>const</em> futuro = <strong>'tuyo'</strong>;</code><span>02</span><code><em>aprende</em>(<strong>cada día</strong>);</code><span>03</span><code><i>▍</i></code></div><div class="codigo-pie"><span class="estado-punto"></span> progreso en marcha <b>● ● ●</b></div></div>
+        <div class="hero-flotante flotante-libro"><span class="flotante-icono">▤</span><span><b>Aprende</b><small>a tu ritmo</small></span></div>
+        <div class="hero-flotante flotante-chip"><span class="chip-icono">&lt;/&gt;</span><span><b>01</b><small>nuevo módulo</small></span></div>
+        <div class="hero-flotante flotante-progreso"><span class="progreso-icono">↗</span><span><b>Tu progreso</b><small>paso a paso</small></span><div class="progreso-barra"><i></i></div></div>
+        <div class="hero-cruz cruz-uno">＋</div><div class="hero-cruz cruz-dos">＋</div>
+    </div>
+</section>
 
 <div class="seccion-encabezado mb-3">
     <div><span class="texto-ceja">EMPIEZA POR AQUÍ</span><h2 class="h3 fw-bold mb-0 mt-1">Cursos recientes</h2></div>
