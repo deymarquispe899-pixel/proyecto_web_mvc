@@ -1,19 +1,26 @@
-@model List<Curso>
+﻿@model List<Curso>
 @{
     ViewData["Title"] = "Inicio";
 }
 
-<div class="p-5 mb-4 bg-light rounded-3">
-    <h1 class="display-5 fw-bold">Portal de Microcursos y Tutoriales</h1>
-    <p class="col-md-8 fs-5">Aprende a tu ritmo con microcursos técnicos gratuitos. Explora el catálogo, inscríbete y sigue tu progreso lección por lección.</p>
-    <a class="btn btn-primary btn-lg" asp-controller="Cursos" asp-action="Index">Ver catálogo</a>
-    @if (User.Identity?.IsAuthenticated != true)
-    {
-        <a class="btn btn-outline-primary btn-lg ms-2" asp-controller="Account" asp-action="Register">Crear cuenta</a>
-    }
+<div class="hero-inicio mb-5">
+    <div class="hero-contenido">
+        <span class="hero-etiqueta">APRENDE A TU RITMO</span>
+        <h1 class="display-4 fw-bold mt-3">Nuevas habilidades,<br />un curso a la vez.</h1>
+        <p class="fs-5 mt-3 mb-4">Explora microcursos técnicos, aprende con lecciones prácticas y sigue tu progreso paso a paso.</p>
+        <a class="btn btn-light btn-lg fw-semibold" asp-controller="Cursos" asp-action="Index">Explorar cursos <span aria-hidden="true">→</span></a>
+        @if (User.Identity?.IsAuthenticated != true)
+        {
+            <a class="btn btn-outline-light btn-lg ms-sm-2 mt-2 mt-sm-0" asp-controller="Account" asp-action="Register">Crear cuenta</a>
+        }
+    </div>
+    <div class="hero-decoracion" aria-hidden="true"><span>✦</span><span>01</span><span>↗</span></div>
 </div>
 
-<h2 class="h4 mb-3">Cursos recientes</h2>
+<div class="seccion-encabezado mb-3">
+    <div><span class="texto-ceja">EMPIEZA POR AQUÍ</span><h2 class="h3 fw-bold mb-0 mt-1">Cursos recientes</h2></div>
+    <a class="link-explorar" asp-controller="Cursos" asp-action="Index">Ver todos <span aria-hidden="true">→</span></a>
+</div>
 @if (!Model.Any())
 {
     <div class="alert alert-info">Aún no hay cursos publicados.</div>
