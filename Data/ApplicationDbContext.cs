@@ -36,7 +36,6 @@ public class ApplicationDbContext : IdentityDbContext
             e.HasIndex(l => new { l.CursoId, l.Orden });
         });
 
-        // Un usuario solo puede inscribirse una vez en cada curso
         builder.Entity<Inscripcion>(e =>
         {
             e.HasOne(i => i.Curso)
@@ -50,7 +49,6 @@ public class ApplicationDbContext : IdentityDbContext
             e.HasIndex(i => new { i.CursoId, i.UsuarioId }).IsUnique();
         });
 
-        // Una lección solo se marca una vez como completada por usuario
         builder.Entity<LeccionCompletada>(e =>
         {
             e.HasOne(lc => lc.Leccion)

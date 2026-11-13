@@ -8,7 +8,6 @@ using PortalMicrocursos.ViewModels;
 
 namespace PortalMicrocursos.Controllers;
 
-/// <summary>Catálogo público: cualquier visitante puede verlo.</summary>
 public class CursosController : Controller
 {
     private readonly ApplicationDbContext _db;
@@ -37,7 +36,6 @@ public class CursosController : Controller
             .FirstOrDefaultAsync(c => c.Id == id && c.Publicado);
         if (curso == null) return NotFound();
 
-        // Solo se cargan los títulos; el contenido nunca se envía desde aquí
         var lecciones = await _db.Lecciones.AsNoTracking()
             .Where(l => l.CursoId == id)
             .OrderBy(l => l.Orden)
@@ -70,7 +68,6 @@ public class CursosController : Controller
             }
             catch (DbUpdateException)
             {
-                // El índice único evita duplicados si se envía dos veces
             }
         }
 

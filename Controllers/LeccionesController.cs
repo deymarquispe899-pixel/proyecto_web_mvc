@@ -8,10 +8,6 @@ using PortalMicrocursos.ViewModels;
 
 namespace PortalMicrocursos.Controllers;
 
-/// <summary>
-/// Contenido protegido. La verificación de inscripción se hace SIEMPRE en el servidor,
-/// por lo que escribir la URL a mano no permite saltarse el control.
-/// </summary>
 [Authorize]
 public class LeccionesController : Controller
 {
@@ -94,7 +90,6 @@ public class LeccionesController : Controller
             }
             catch (DbUpdateException)
             {
-                // Duplicado por doble envío: se ignora
             }
         }
 

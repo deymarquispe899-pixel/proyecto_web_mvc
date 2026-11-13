@@ -91,7 +91,7 @@ public class AdminCursosController : Controller
         var curso = await _db.Cursos.FindAsync(id);
         if (curso == null) return NotFound();
 
-        _db.Cursos.Remove(curso); // borra en cascada lecciones, inscripciones y progreso
+        _db.Cursos.Remove(curso);
         await _db.SaveChangesAsync();
 
         TempData["Ok"] = "Curso eliminado.";

@@ -10,7 +10,6 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// ASP.NET Core Identity: usuarios y roles en las tablas AspNet*
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -32,7 +31,6 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Crea la BD (si no existe), roles, usuario administrador y datos de ejemplo
 using (var scope = app.Services.CreateScope())
 {
     await SeedData.InicializarAsync(scope.ServiceProvider);

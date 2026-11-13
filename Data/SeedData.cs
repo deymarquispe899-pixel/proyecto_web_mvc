@@ -13,7 +13,6 @@ public static class SeedData
     {
         var db = services.GetRequiredService<ApplicationDbContext>();
 
-        // Si hay migraciones se aplican; si no, se crea el esquema directamente.
         if (db.Database.GetMigrations().Any())
             await db.Database.MigrateAsync();
         else

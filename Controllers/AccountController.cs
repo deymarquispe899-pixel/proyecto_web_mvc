@@ -35,7 +35,6 @@ public class AccountController : Controller
             return View(model);
         }
 
-        // Todo usuario que se registra es Suscriptor
         await _userManager.AddToRoleAsync(user, RolesApp.Suscriptor);
         await _signInManager.SignInAsync(user, isPersistent: false);
 
